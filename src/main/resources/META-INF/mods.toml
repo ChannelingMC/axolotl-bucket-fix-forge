@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[41,)"
+license="LGPLv3"
+issueTrackerURL="https://github.com/ChannelingMC/axolotl-bucket-fix-forge/issues/"
+
+[[mods]]
+    modId="axolotlbucketfix"
+    version="${version}"
+    displayName="Axolotl Bucket Fix"
+    #updateJSONURL="https://change.me.example.invalid/updates.json"
+    displayURL="https://www.curseforge.com/minecraft/mc-mods/axolotl-bucket-fix-forge"
+    logoFile="pack.png"
+    credits="Thanks ColdLavaLamp for the original work!"
+    authors="LimonBlaze"
+    description="Make the axolotl bucket item show the right axolotl type."
+
+[[dependencies.axolotlbucketfix]]
+    modId="forge"
+    mandatory=true
+    versionRange="[41,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.axolotlbucketfix]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.19,)"
+    ordering="NONE"
+    side="BOTH"
