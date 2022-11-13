@@ -7,7 +7,9 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,23 +25,23 @@ public class AxolotlBucketFix {
 	public AxolotlBucketFix() {}
 	
 	@SubscribeEvent
-	public static void onModelRegister(ModelEvent.RegisterAdditional event) {
-		event.register(new ModelResourceLocation(new ResourceLocation(ID, "axolotl_bucket/adult"), "inventory"));
-		event.register(new ModelResourceLocation(new ResourceLocation(ID, "axolotl_bucket/baby"), "inventory"));
+	public static void onModelRegister(ModelRegistryEvent event) {
+		ForgeModelBakery.addSpecialModel(new ModelResourceLocation(new ResourceLocation(ID, "axolotl_bucket/adult"), "inventory"));
+		ForgeModelBakery.addSpecialModel(new ModelResourceLocation(new ResourceLocation(ID, "axolotl_bucket/baby"), "inventory"));
 		for (Axolotl.Variant variant : Axolotl.Variant.values()) {
 			String name = variant.getName();
-			ResourceLocation adultId = ResourceLocation.tryBuild(ID, "axolotl_bucket/" + name + "/adult");
-			ResourceLocation babyId = ResourceLocation.tryBuild(ID, "axolotl_bucket/" + name + "/baby");
+			ResourceLocation adultId = ResourceLocation.tryParse(ID + ":axolotl_bucket/" + name + "/adult");
+			ResourceLocation babyId = ResourceLocation.tryParse(ID + ":axolotl_bucket/" + name + "/baby");
 			if (adultId != null && babyId != null) {
-				event.register(new ModelResourceLocation(adultId, "inventory"));
-				event.register(new ModelResourceLocation(babyId, "inventory"));
+				ForgeModelBakery.addSpecialModel(new ModelResourceLocation(adultId, "inventory"));
+				ForgeModelBakery.addSpecialModel(new ModelResourceLocation(babyId, "inventory"));
 			}
 		}
 	}
 	
 	@SubscribeEvent(priority = EventPriority.LOW)
-	public static void onModelBake(ModelEvent.BakingCompleted event) {
-		Map<ResourceLocation, BakedModel> registry = event.getModels();
+	public static void onModelBake(ModelBakeEvent event) {
+		Map<ResourceLocation, BakedModel> registry = event.getModelRegistry();
 		ModelManager manager = event.getModelManager();
 		BakedModel waterBucketModel =
 			manager.getModel(new ModelResourceLocation(new ResourceLocation("water_bucket"), "inventory"));
@@ -50,8 +52,8 @@ public class AxolotlBucketFix {
 		EnumMap<Axolotl.Variant, Pair<BakedModel, BakedModel>> variantModels = new EnumMap<>(Axolotl.Variant.class);
 		for (Axolotl.Variant variant : Axolotl.Variant.values()) {
 			String name = variant.getName();
-			ResourceLocation adultId = ResourceLocation.tryBuild(ID, "axolotl_bucket/" + name + "/adult");
-			ResourceLocation babyId = ResourceLocation.tryBuild(ID, "axolotl_bucket/" + name + "/baby");
+			ResourceLocation adultId = ResourceLocation.tryParse(ID + ":axolotl_bucket/" + name + "/adult");
+			ResourceLocation babyId = ResourceLocation.tryParse(ID + ":axolotl_bucket/" + name + "/baby");
 			if (adultId != null && babyId != null) {
 				variantModels.put(variant, new Pair<>(
 					registry.getOrDefault(new ModelResourceLocation(adultId, "inventory"), defaultAdultModel),

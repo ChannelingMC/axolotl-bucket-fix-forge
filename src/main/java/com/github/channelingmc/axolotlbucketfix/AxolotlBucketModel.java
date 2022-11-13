@@ -12,6 +12,7 @@ import net.minecraft.world.entity.animal.axolotl.Axolotl;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -20,7 +21,7 @@ import java.util.EnumMap;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class AxolotlBucketModel extends BakedModelWrapper<BakedModel> {
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(AxolotlBucketModel.class);
     private final EnumMap<Axolotl.Variant, Pair<BakedModel, BakedModel>> variantModels;
     private final Overrides overrides;
     
