@@ -1,7 +1,6 @@
 package com.github.channelingmc.axolotlbucketfix;
 
 import com.mojang.datafixers.util.Pair;
-import com.mojang.logging.LogUtils;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
